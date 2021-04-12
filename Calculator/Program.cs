@@ -11,7 +11,14 @@ namespace Calculator
             Console.WriteLine("Press ENTER to begin\nInput E to exit\n");
             switch (Console.ReadLine().ToLower())
             {
-
+                case "":
+                    Console.WriteLine("Let's get calculating");
+                    // CalculatorMenu();
+                    break;
+                case "e":
+                    Console.WriteLine("Thanks for using Descartes.");
+                    System.Environment.Exit(0);
+                    break;
             }
         }
     }
