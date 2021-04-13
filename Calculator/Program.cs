@@ -42,15 +42,15 @@ namespace Calculator
                     break;
                 case "2":
                     Console.WriteLine();
-                    //Subtraction();
+                    Subtraction();
                     break;
                 case "3":
                     Console.WriteLine();
-                    //Multiplication();
+                    Multiplication();
                     break;
                 case "4":
                     Console.WriteLine();
-                    //Division();
+                    Division();
                     break;
                 case "e":
                     Console.WriteLine();
@@ -66,6 +66,7 @@ namespace Calculator
 
         public static void RestartCalculator()
         {
+            // Create a prompt asking if the user wants to restart the application
             Console.WriteLine("Do you wish to use Descartes again?");
             Console.WriteLine("Press ENTER to restart\nInput E to exit");
             switch (Console.ReadLine().ToLower())
@@ -84,6 +85,7 @@ namespace Calculator
 
         public static bool ContinueCalculator(bool Answer)
         {
+            // Create a prompt asking whether the user wants to continue their current operation
             Console.WriteLine("Do you wish to continue this operation?");
             Console.WriteLine("Input Y for Yes\nInput N for No");
             switch (Console.ReadLine().ToLower())
@@ -102,19 +104,154 @@ namespace Calculator
 
         public static void Addition()
         {
+            // Create a method for adding two numbers together
             bool Add = true;
+            // Have the operation loop throught the method until the user decides otherwise
             do
             {
+                // Ask the user for a number and validate that the number can be parsed as an int
                 Console.Write("Enter the first number: ");
-                int firstNumber = Convert.ToInt32(Console.ReadLine());
-                Console.WriteLine();
+                bool firstNumberValid = Int32.TryParse(Console.ReadLine(), out int firstNumber);
+                if (firstNumberValid == true)
+                {
+                    Console.WriteLine();
+                }
+                else
+                {
+                    Console.WriteLine("You did not enter the value in the correct format. I shall reset the operation.\n");
+                    Addition();
+                }
+
                 Console.Write("Enter the second number: ");
-                int secondNumber = Convert.ToInt32(Console.ReadLine());
-                Console.WriteLine();
+                bool secondNumberValid = Int32.TryParse(Console.ReadLine(), out int secondNumber);
+                if (secondNumberValid == true)
+                {
+                    Console.WriteLine();
+                }
+                else
+                {
+                    Console.WriteLine("You did not enter the value in the correct format. I shall reset the operation.\n");
+                    Addition();
+                }
+
                 int answer = firstNumber + secondNumber;
                 Console.WriteLine($"Your answer is {answer}\n");
                 ContinueCalculator(Add);
             } while (Add == true);
+        }
+
+        public static void Subtraction()
+        {
+            // Create a method for subtracting a number from another
+            bool Minus = true;
+            // Have the operation loop throught the method until the user decides otherwise
+            do
+            {
+                // Ask the user for a number and validate that the number can be parsed as an int
+                Console.Write("Enter the first number: ");
+                bool firstNumberValid = Int32.TryParse(Console.ReadLine(), out int firstNumber);
+                if (firstNumberValid == true)
+                {
+                    Console.WriteLine();
+                }
+                else
+                {
+                    Console.WriteLine("You did not enter the value in the correct format. I shall reset the operation.\n");
+                    Subtraction();
+                }
+
+                Console.Write("Enter the second number: ");
+                bool secondNumberValid = Int32.TryParse(Console.ReadLine(), out int secondNumber);
+                if (secondNumberValid == true)
+                {
+                    Console.WriteLine();
+                }
+                else
+                {
+                    Console.WriteLine("You did not enter the value in the correct format. I shall reset the operation.\n");
+                    Subtraction();
+                }
+
+                int answer = firstNumber - secondNumber;
+                Console.WriteLine($"Your answer is {answer}\n");
+                ContinueCalculator(Minus);
+            } while (Minus == true);
+        }
+
+        public static void Multiplication()
+        {
+            // Create a method for multiplying a number with another
+            bool Times = true;
+            // Have the operation loop throught the method until the user decides otherwise
+            do
+            {
+                // Ask the user for a number and validate that the number can be parsed as an int
+                Console.Write("Enter the first number: ");
+                bool firstNumberValid = Int32.TryParse(Console.ReadLine(), out int firstNumber);
+                if (firstNumberValid == true)
+                {
+                    Console.WriteLine();
+                }
+                else
+                {
+                    Console.WriteLine("You did not enter the value in the correct format. I shall reset the operation.\n");
+                    Multiplication();
+                }
+
+                Console.Write("Enter the second number: ");
+                bool secondNumberValid = Int32.TryParse(Console.ReadLine(), out int secondNumber);
+                if (secondNumberValid == true)
+                {
+                    Console.WriteLine();
+                }
+                else
+                {
+                    Console.WriteLine("You did not enter the value in the correct format. I shall reset the operation.\n");
+                    Multiplication();
+                }
+
+                int answer = firstNumber * secondNumber;
+                Console.WriteLine($"Your answer is {answer}\n");
+                ContinueCalculator(Times);
+            } while (Times == true);
+        }
+
+        public static void Division()
+        {
+            // Create a method for dividing a number by another
+            bool Over = true;
+            // Have the operation loop throught the method until the user decides otherwise
+            do
+            {
+                // Ask the user for a number and validate that the number can be parsed as an int
+                Console.Write("Enter the first number: ");
+                bool firstNumberValid = Int32.TryParse(Console.ReadLine(), out int firstNumber);
+                if (firstNumberValid == true)
+                {
+                    Console.WriteLine();
+                }
+                else
+                {
+                    Console.WriteLine("You did not enter the value in the correct format. I shall reset the operation.\n");
+                    Division();
+                }
+
+                Console.Write("Enter the second number: ");
+                bool secondNumberValid = Int32.TryParse(Console.ReadLine(), out int secondNumber);
+                if (secondNumberValid == true)
+                {
+                    Console.WriteLine();
+                }
+                else
+                {
+                    Console.WriteLine("You did not enter the value in the correct format. I shall reset the operation.\n");
+                    Division();
+                }
+
+                int answer = firstNumber / secondNumber;
+                Console.WriteLine($"Your answer is {answer}\n");
+                ContinueCalculator(Over);
+            } while (Over == true);
         }
     }    
 }
