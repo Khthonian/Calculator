@@ -1,60 +1,99 @@
 const output = document.querySelector(".output");
-const steps = document.querySelectorAll(".step-by-step");
-const buttons = document.querySelectorAll(".button");
+const steps = document.querySelector(".step-by-step");
+const buttons = document.querySelectorAll(".numeric");
+const operatorButtons = document.querySelectorAll(".operation");
+const equalButton = document.querySelector(".equal");
+const clearButton = document.querySelector("#clear-button");
+const deleteButton = document.querySelector("#delete-button");
 
+let firstNumber = null;
+let operator = null;
+let secondNumber = null;
 let displayValue = "";
-
-const add = function(a, b) {
-    return a + b;
-};
-
-const subtract = function(a, b) {
-    return a - b;
-};
-
-const multiply = function(a, b) {
-    return a * b;
-};
-
-const divide = function(a, b) {
-    if (b === 0) {
-        return "Division by zero is not allowed.";
-    }
-    return a / b;
-};
+let operationValue = "";
 
 function updateDisplay() {
     output.textContent = displayValue;
+    steps.textContent = operationValue;
 }
 
-function onNumberButtonClick(number) {
-    displayValue = displayValue === "0" ? number : displayValue + number;
-    
+function resetCalculator() {
+    firstNumber = null;
+    operator = null;
+    secondNumber = null;
+    displayValue = "";
+    operationValue = "";
     updateDisplay();
 }
 
-// Function to perform an operation based on the operator and two numbers
 function operate(operator, a, b) {
     switch (operator) {
-        case '+':
-            return add(a, b);
-        case '-':
-            return subtract(a, b);
-        case '*':
-            return multiply(a, b);
-        case '/':
-            return divide(a, b);
+        case "+":
+            return a + b;
+        case "-":
+            return a - b;
+        case "*":
+            return a * b;
+        case "/":
+            return a / b;
         default:
             return `Invalid operator: ${operator}`;
     }
 }
 
+function onNumberButtonClick(number) {
+    displayValue += number;
+    operationValue += number;
+    updateDisplay();
+}
+
+function onOperatorButtonClick(selectedOperator) {
+    if (displayValue !== "") {
+        if (firstNumber !== null && operator !== null && secondNumber === null) {
+            // If an operator has been selected and the second number is not set, update the step-by-step display
+            operationValue += " " + selectedOperator + " ";
+            operator = selectedOperator;
+        } 
+        
+        else {
+            operationValue = displayValue + " " + selectedOperator + " ";
+            firstNumber = Number(displayValue);
+            operator = selectedOperator;
+        }
+
+        displayValue = "";
+        updateDisplay();
+    }
+}
+
+function onEqualButtonClick() {
+    if (operator && displayValue !== "") {
+        secondNumber = Number(displayValue);
+        const result = operate(operator, firstNumber, secondNumber);
+        displayValue = String(result);
+        updateDisplay();
+        firstNumber = result;
+        operator = null;
+        secondNumber = null;
+    }
+}
+
 buttons.forEach((button) => {
     button.addEventListener("click", () => {
-      // Get the clicked number from the button's text content
-      const number = button.textContent;
-      
-      // Call the function to handle number button clicks
-      onNumberButtonClick(number);
+        const number = button.textContent;
+        onNumberButtonClick(number);
     });
 });
+
+clearButton.addEventListener("click", () => {
+    resetCalculator();
+});
+
+operatorButtons.forEach((button) => {
+    button.addEventListener("click", () => {
+        const selectedOperator = button.textContent;
+        onOperatorButtonClick(selectedOperator);
+    });
+});
+
+equalButton.addEventListener("click", onEqualButtonClick);
