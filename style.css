@@ -76,7 +76,7 @@ body {
     padding: 10px;
 }
 
-.button {
+.input-buttons > button {
     padding: 10px;
     background-color: #e6e6e6;
     color: #333333;
@@ -86,11 +86,11 @@ body {
     font-size: 30px;
 }
 
-.button:hover {
+.input-buttons > button:hover {
     background-color: #d3d3d3;
 }
 
-.button:active {
+.input-buttons > button:active {
     background-color: #bfbfbf;
     scale: 0.9;
 }

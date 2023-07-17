@@ -1,3 +1,9 @@
+const output = document.querySelector(".output");
+const steps = document.querySelectorAll(".step-by-step");
+const buttons = document.querySelectorAll(".button");
+
+let displayValue = "";
+
 const add = function(a, b) {
     return a + b;
 };
@@ -17,11 +23,15 @@ const divide = function(a, b) {
     return a / b;
 };
 
-// A calculator operation will consist of a number, an operator, and another number.
-// Create variables for the parts of the calculator operation.
-let firstNumber = 3;
-let operator = '+';
-let secondNumber = 5;
+function updateDisplay() {
+    output.textContent = displayValue;
+}
+
+function onNumberButtonClick(number) {
+    displayValue = displayValue === "0" ? number : displayValue + number;
+    
+    updateDisplay();
+}
 
 // Function to perform an operation based on the operator and two numbers
 function operate(operator, a, b) {
@@ -38,3 +48,13 @@ function operate(operator, a, b) {
             return `Invalid operator: ${operator}`;
     }
 }
+
+buttons.forEach((button) => {
+    button.addEventListener("click", () => {
+      // Get the clicked number from the button's text content
+      const number = button.textContent;
+      
+      // Call the function to handle number button clicks
+      onNumberButtonClick(number);
+    });
+});
