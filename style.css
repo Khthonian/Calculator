@@ -32,12 +32,51 @@ body {
 
 .calculator {
     border: 5px solid black;
-    height: 500px;
-    width: 500px;
+    height: 530px;
+    width: 400px;
     margin: auto;
-
+    background-color: #cccccc;
+    border-radius: 10px;
+    box-shadow:  20px 20px 10px #bebebe, -20px -20px 10px #ffffff;
 }
 
+.screen {
+    height: 150px;
+    background-color: #f2f2f2;
+    border: 2px solid black;
+    border-radius: 10px;
+    margin: 10px;
+}
+
+.input-buttons {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+    padding: 10px;
+}
+
+.button {
+    padding: 10px;
+    background-color: #e6e6e6;
+    color: #333333;
+    border: 2px solid black;
+    border-radius: 10px;
+    transition: 0.3s;
+    font-size: 30px;
+}
+
+.button:hover {
+    background-color: #d3d3d3;
+}
+
+.button:active {
+    background-color: #bfbfbf;
+    scale: 0.9;
+}
+
+.span {
+    grid-column: span 2;
+}
 
 .footer {
     position: absolute;
