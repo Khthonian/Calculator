@@ -30,26 +30,18 @@ function resetCalculator() {
     updateDisplay();
 }
 
-function decimalFigure(a, b) {
-    const aDecimalPlaces = (a.toString().split(".")[1] || "").length;
-    const bDecimalPlaces = (b.toString().split(".")[1] || "").length;
-    const maxDecimalPlaces = Math.max(aDecimalPlaces, bDecimalPlaces);
-    return Math.pow(10, maxDecimalPlaces);
-}
-
 // Function to perform basic mathematical operations
 function operate(operator, a, b) {
-    let roundFactor = decimalFigure(a, b);
-
+    
     switch (operator) {
         case "+":
-            return Math.round((a + b) * roundFactor) / roundFactor;
+            return Math.round((a + b) * 1e12) / 1e12;
         case "-":
-            return Math.round((a - b) * roundFactor) / roundFactor;
+            return Math.round((a - b) * 1e12) / 1e12;
         case "×":
-            return Math.round((a * b) * roundFactor) / roundFactor;
+            return Math.round((a * b) * 1e12) / 1e12;
         case "÷":
-            return Math.round((a / b) * roundFactor) / roundFactor;
+            return Math.round((a / b) * 1e12) / 1e12;
         default:
             return `Invalid operator: ${operator}`;
     }
