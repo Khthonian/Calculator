@@ -58,19 +58,24 @@ function onNumberButtonClick(number) {
 function onOperatorButtonClick(selectedOperator) {
     if (displayValue !== "") {
         if (firstNumber !== null && operator !== null && secondNumber === null) {
-            // If an operator has been selected and the second number is not set,
-            // update the step-by-step display with the new operator
-            operationValue += " " + selectedOperator + " ";
-            operator = selectedOperator;
+            // If an operator has been selected, the second number is not set,
+            // and there is a pending operation, perform it first
+            secondNumber = Number(displayValue);
+            const result = operate(operator, firstNumber, secondNumber);
+
+            // Update the step-by-step display with the result and the new operator
+            operationValue = `${result} ${selectedOperator} `;
+            firstNumber = result;
+            secondNumber = null;
         } else {
             // Otherwise, set the first number to the current display value and update the operator
             operationValue = displayValue + " " + selectedOperator + " ";
             firstNumber = Number(displayValue);
-            operator = selectedOperator;
         }
 
         // Reset the display value for the next number input
         displayValue = "";
+        operator = selectedOperator;
         updateDisplay();
     }
 }
