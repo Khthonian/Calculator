@@ -1,0 +1,59 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    margin: 0 auto;
+    text-align: center;
+    font-family: Helvetica, Arial, sans-serif;
+    font-size: xx-large;
+    max-width: 100%;
+    overflow-x: hidden;
+    transition: 1s;
+    background-color: #fff;
+}
+
+.header {
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    width: 100%;
+    padding: 10px;
+    color: var(--primary-light);
+    font-size: x-large;
+    z-index: 999; /* Use a high z-index to ensure it appears on top of other elements */
+}
+
+.calculator {
+    padding-top: 80px;
+}
+
+
+.footer {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    width: 100%;
+    padding: 10px;
+    color: var(--primary-light);
+    font-size: x-large;
+}
+
+#github-link {
+    width: 40px;
+    height: auto;
+    transition: 0.5s;
+}
+
+#github-link:hover, #github:focus {
+    scale: 1.1;
+}
