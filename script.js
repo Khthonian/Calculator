@@ -34,13 +34,13 @@ function resetCalculator() {
 function operate(operator, a, b) {
     switch (operator) {
         case "+":
-            return a + b;
+            return Math.round((a + b) * 100) / 100;
         case "-":
-            return a - b;
+            return Math.round((a - b) * 100) / 100;
         case "×":
-            return a * b;
+            return Math.round((a * b) * 100) / 100;
         case "÷":
-            return a / b;
+            return Math.round((a / b) * 100) / 100;
         default:
             return `Invalid operator: ${operator}`;
     }
