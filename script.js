@@ -65,6 +65,8 @@ function operate(operator, a, b) {
             return Math.round((a * b) * 1e12) / 1e12;
         case "÷":
             return Math.round((a / b) * 1e12) / 1e12;
+        case "%":
+            return Math.round((a % b) * 1e12) / 1e12;
         default:
             return `Invalid operator: ${operator}`;
     }
