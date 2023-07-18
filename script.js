@@ -16,8 +16,8 @@ let operationValue = "";
 
 // Function to update the display with the current values
 function updateDisplay() {
-    output.textContent = displayValue;
-    steps.textContent = operationValue;
+    output.textContent = displayValue; 
+    steps.textContent = operationValue; 
 }
 
 // Function to reset the calculator state to its initial values
@@ -30,23 +30,28 @@ function onClearButtonClick() {
     updateDisplay();
 }
 
+// Function to handle when the DELETE button is clicked
 function onDeleteButtonClick() {
-    // Remove the last character from the display value and the step-by-step display
-    if (operationValue.slice(-1) === " ") {
-        displayValue = displayValue.slice(0, -2);
-        operationValue = operationValue.slice(0, -2);
+    // Check if the display value is empty
+    if (displayValue === "") {
+        return;
     }
 
-    else {
+    // Check if the next character in the display value is a space
+    if (operationValue.slice(-1) === " ") {
+        // Remove the space and the following character (numeric digit or operator)
+        displayValue = displayValue.slice(0, -2);
+        operationValue = operationValue.slice(0, -2);
+    } else {
+        // If the next character is not a space, remove only the last character
         displayValue = displayValue.slice(0, -1);
         operationValue = operationValue.slice(0, -1);
     }
 
-    // Check if the operator or the first number was sliced and reset them accordingly
+    // Check and reset the operator or firstNumber if necessary
     if (operator !== null && displayValue === "") {
         operator = null;
-    }
-    else if (firstNumber !== null && displayValue === "") {
+    } else if (firstNumber !== null && displayValue === "") {
         firstNumber = null;
     }
 
@@ -55,18 +60,18 @@ function onDeleteButtonClick() {
 
 // Function to perform basic mathematical operations
 function operate(operator, a, b) {
-    
     switch (operator) {
+        // Floating point rounding trick used for decimal placing
         case "+":
             return Math.round((a + b) * 1e12) / 1e12;
         case "-":
             return Math.round((a - b) * 1e12) / 1e12;
         case "×":
-            return Math.round((a * b) * 1e12) / 1e12;
+            return Math.round(a * b * 1e12) / 1e12;
         case "÷":
-            return Math.round((a / b) * 1e12) / 1e12;
+            return Math.round(a / b * 1e12) / 1e12;
         case "%":
-            return Math.round((a % b) * 1e12) / 1e12;
+            return Math.round(a % b * 1e12) / 1e12;
         default:
             return `Invalid operator: ${operator}`;
     }
@@ -74,8 +79,8 @@ function operate(operator, a, b) {
 
 // Function to handle when a numeric button is clicked
 function onNumberButtonClick(number) {
-    displayValue += number; // Append the clicked number to the display value
-    operationValue += number; // Append the clicked number to the step-by-step display
+    displayValue += number; 
+    operationValue += number;
     updateDisplay();
 }
 
@@ -83,22 +88,17 @@ function onNumberButtonClick(number) {
 function onOperatorButtonClick(selectedOperator) {
     if (displayValue !== "") {
         if (firstNumber !== null && operator !== null && secondNumber === null) {
-            // If an operator has been selected, the second number is not set,
-            // and there is a pending operation, perform it first
             secondNumber = Number(displayValue);
             const result = operate(operator, firstNumber, secondNumber);
 
-            // Update the step-by-step display with the result and the new operator
             operationValue = `${result} ${selectedOperator} `;
             firstNumber = result;
             secondNumber = null;
         } else {
-            // Otherwise, set the first number to the current display value and update the operator
             operationValue = displayValue + " " + selectedOperator + " ";
             firstNumber = Number(displayValue);
         }
 
-        // Reset the display value for the next number input
         displayValue = "";
         operator = selectedOperator;
         updateDisplay();
@@ -108,16 +108,14 @@ function onOperatorButtonClick(selectedOperator) {
 // Function to handle when the equal button is clicked
 function onEqualButtonClick() {
     if (operator && displayValue !== "") {
-        // If an operator is set and there is a display value (second number),
-        // perform the operation and update the display with the result
         if (secondNumber === null) {
             secondNumber = Number(displayValue);
         }
+
         const result = operate(operator, firstNumber, secondNumber);
         displayValue = String(result);
         updateDisplay();
 
-        // Update the calculator state for the next operation
         firstNumber = result;
         operator = null;
         secondNumber = null;
