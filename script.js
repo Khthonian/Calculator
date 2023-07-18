@@ -21,12 +21,35 @@ function updateDisplay() {
 }
 
 // Function to reset the calculator state to its initial values
-function resetCalculator() {
+function onClearButtonClick() {
     firstNumber = null;
     operator = null;
     secondNumber = null;
     displayValue = "";
     operationValue = "";
+    updateDisplay();
+}
+
+function onDeleteButtonClick() {
+    // Remove the last character from the display value and the step-by-step display
+    if (operationValue.slice(-1) === " ") {
+        displayValue = displayValue.slice(0, -2);
+        operationValue = operationValue.slice(0, -2);
+    }
+
+    else {
+        displayValue = displayValue.slice(0, -1);
+        operationValue = operationValue.slice(0, -1);
+    }
+
+    // Check if the operator or the first number was sliced and reset them accordingly
+    if (operator !== null && displayValue === "") {
+        operator = null;
+    }
+    else if (firstNumber !== null && displayValue === "") {
+        firstNumber = null;
+    }
+
     updateDisplay();
 }
 
@@ -85,7 +108,9 @@ function onEqualButtonClick() {
     if (operator && displayValue !== "") {
         // If an operator is set and there is a display value (second number),
         // perform the operation and update the display with the result
-        secondNumber = Number(displayValue);
+        if (secondNumber === null) {
+            secondNumber = Number(displayValue);
+        }
         const result = operate(operator, firstNumber, secondNumber);
         displayValue = String(result);
         updateDisplay();
@@ -106,9 +131,10 @@ buttons.forEach((button) => {
 });
 
 // Add click event listener to the clear button
-clearButton.addEventListener("click", () => {
-    resetCalculator();
-});
+clearButton.addEventListener("click", onClearButtonClick);
+
+// Add click event listener to the delete button
+deleteButton.addEventListener("click", onDeleteButtonClick);
 
 // Add click event listeners to all operator buttons
 operatorButtons.forEach((button) => {
